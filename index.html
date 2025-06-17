@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChatBot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-container {
+      width: 400px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #4e54c8;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-msg, .bot-msg {
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 20px;
+      max-width: 80%;
+    }
+
+    .user-msg {
+      align-self: flex-end;
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .bot-msg {
+      align-self: flex-start;
+      background-color: #f8d7da;
+      color: #842029;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      font-size: 1em;
+      outline: none;
+    }
+
+    .chat-input button {
+      background-color: #4e54c8;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background-color: #3439b5;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">ChatBot</div>
+    <div class="chat-box" id="chatBox">
+      <div class="bot-msg">Hello! I'm your chatbot. Ask me anything!</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (message === '') return;
+
+      // Add user message
+      const chatBox = document.getElementById('chatBox');
+      const userMsg = document.createElement('div');
+      userMsg.className = 'user-msg';
+      userMsg.innerText = message;
+      chatBox.appendChild(userMsg);
+
+      // Basic bot replies
+      let reply = "I'm sorry, I don't understand that.";
+      if (message.toLowerCase().includes("hello") || message.toLowerCase().includes("hi")) {
+        reply = "Hello! How can I help you today?";
+      } else if (message.toLowerCase().includes("python")) {
+        reply = "Python is a programming language known for its readability.";
+      } else if (message.toLowerCase().includes("joke")) {
+        reply = "Why did the developer go broke? Because he used up all his cache!";
+      } else if (message.toLowerCase().includes("bye")) {
+        reply = "Goodbye! Have a great day!";
+      }
+
+      // Add bot reply
+      const botMsg = document.createElement('div');
+      botMsg.className = 'bot-msg';
+      botMsg.innerText = reply;
+      chatBox.appendChild(botMsg);
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
